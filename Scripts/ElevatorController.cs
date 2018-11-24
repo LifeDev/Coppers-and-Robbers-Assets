@@ -5,8 +5,7 @@ using UnityEngine;
 public class ElevatorController : MonoBehaviour {
 
     int blocksToTp = 9;
- 
-  
+
     public PlayeerMovement player;
     public EntityController entity;
 
@@ -16,6 +15,7 @@ public class ElevatorController : MonoBehaviour {
         if (collision.gameObject.tag == "Player")
         {
             player.elevatorChecked = true;
+       
         }
         else if (collision.gameObject.tag == "Entity") {  
             if (EntityController.useElevator())
