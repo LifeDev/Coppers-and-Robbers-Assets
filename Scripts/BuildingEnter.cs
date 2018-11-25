@@ -15,6 +15,10 @@ public class BuildingEnter : MonoBehaviour
 			player.canEnterBuilding = true;
         
 		}
+        else if (collision.gameObject.tag == "Entity")
+        {
+
+        }
 	
 	}
 
