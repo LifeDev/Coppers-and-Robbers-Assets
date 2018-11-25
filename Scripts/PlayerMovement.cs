@@ -15,13 +15,22 @@ public class PlayerMovement : CharacterMovement {
     
     public SpriteRenderer rend;
 
+    public bool canSprint { get; set; }
 
+    private float sprintCooldownTemp;
+    public float sprintCooldown;
+    private float sprintDurationTemp;
+    public float sprintDuration;
+    
     private void Start()
     {
         rend = GetComponent<SpriteRenderer>();
         elevatorChecked = false;
         insideBuilding = false;
         canEnterBuilding = false;
+        canSprint = true;
+        sprintCooldownTemp = sprintCooldown;
+        sprintDurationTemp = sprintDuration;
     }
 
     // Update is called once per frame
@@ -30,7 +39,46 @@ public class PlayerMovement : CharacterMovement {
         //movement
             MoveRobber(movementSpeed, elevatorChecked, insideBuilding, canEnterBuilding, rend);
             
+            Sprint();
+        }
 
+    void Sprint()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            if (canSprint)
+            {
+                movementSpeed *= 2f;
+                canSprint = false;
+                sprintDurationTemp -= 0.000001f;
+            }
+        }
+
+        if (!canSprint)
+        {
+            if (!(sprintDurationTemp == sprintDuration))
+            {
+                sprintDurationTemp -= Time.deltaTime;
+
+            }
+            sprintCooldownTemp -= Time.deltaTime;
+            Debug.Log(sprintCooldown);
+            Debug.Log(sprintDuration);
+        }
+
+        if (sprintCooldownTemp <= 0f)
+        {
+            canSprint = true;
+            sprintCooldownTemp = sprintCooldown;
+        }
+
+        if (sprintDurationTemp <= 0f)
+        {
+            movementSpeed = movementSpeed / 2f;
+            sprintDurationTemp = sprintDuration;
+            
+        }
+        
     }
 
     }
