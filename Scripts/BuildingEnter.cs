@@ -6,7 +6,7 @@ public class BuildingEnter : MonoBehaviour
 {
 
 
-	public PlayeerMovement player;
+	public PlayerMovement player;
 	    
 	void OnTriggerEnter2D(Collider2D collision)
 	{

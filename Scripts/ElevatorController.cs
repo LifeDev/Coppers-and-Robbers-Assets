@@ -6,7 +6,7 @@ public class ElevatorController : MonoBehaviour {
 
     int blocksToTp = 9;
 
-    public PlayeerMovement player;
+    public PlayerMovement player;
     public EntityController entity;
 
 
