@@ -2350,7 +2350,7 @@ MonoBehaviour:
   player: {fileID: 660426216}
   movementSpeed: 5
   rend: {fileID: 660426218}
-  sprintCooldown: 10
+  sprintCooldown: 5
   sprintDuration: 3
   cooldownText: {fileID: 1747256766}
   cooldownImage: {fileID: 1815048253}
