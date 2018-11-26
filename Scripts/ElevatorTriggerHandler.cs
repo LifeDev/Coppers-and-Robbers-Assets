@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class ElevatorController : MonoBehaviour {
+public class ElevatorTriggerHandler : MonoBehaviour {
 
-    float blocksToTp = EntityController.secondLevel - EntityController.firstLevel;
+    float blocksToTp = Spawner.secondLevel - Spawner.firstLevel;
 
-    public PlayerMovement player;
+    [FormerlySerializedAs("player")] public RobberMovement Robber;
     public EntityMovement entity;
 
 
@@ -14,14 +15,14 @@ public class ElevatorController : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Player")
         {
-            player.playerElevatorChecked = true;
-            Debug.Log(player.playerElevatorChecked);
+            Robber.ElevatorChecked = true;
+            Debug.Log(Robber.ElevatorChecked);
         }
         else if (collision.gameObject.tag == "Entity")
         {
             entity = collision.GetComponent<EntityMovement>();
-            entity.entityElevatorChecked = true;
-            Debug.Log(entity.entityElevatorChecked);
+            entity.ElevatorChecked = true;
+            Debug.Log(entity.ElevatorChecked);
         }
     }
 
@@ -29,12 +30,12 @@ public class ElevatorController : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Player")
         {
-            player.playerElevatorChecked = false;
+            Robber.ElevatorChecked = false;
         }
         if (collision.gameObject.tag == "Entity")
         {
             entity = collision.GetComponent<EntityMovement>();
-            entity.entityElevatorChecked = false;
+            entity.ElevatorChecked = false;
         }
     }
 

@@ -4,17 +4,17 @@ namespace DefaultNamespace
 {
     public class CharacterMovement : MonoBehaviour
     {
-        private ElevatorController elevator = new ElevatorController();
+        private ElevatorTriggerHandler elevator = new ElevatorTriggerHandler();
         [SerializeField] private GameObject player;
         [SerializeField] private float timeInsideBuilding;
         public bool insideBuilding { get; set; }
-        public bool playerElevatorChecked { get; set; }
-        public bool entityElevatorChecked { get; set; }
+        public bool ElevatorChecked { get; set; }
         public bool canEnterBuilding { get; set; }
         public float currentTimeInsideBuilding { get; set; }
         public bool FirstLevel { get; set; }
         public bool LastLevel { get; set; }
-
+        public float movementSpeed;
+        protected SpriteRenderer rend;
 
         protected void MoveRobber(float speed, bool elevatorChecked, bool insideBuilding,
             bool canEnterBuilding, SpriteRenderer rend)
@@ -89,10 +89,10 @@ namespace DefaultNamespace
             }
             
             
-            if (entity.entityElevatorChecked && (target.y > entity.transform.position.y))
+            if (entity.ElevatorChecked && (target.y > entity.transform.position.y))
             {
                 elevator.Elevate(entity);
-                entity.entityElevatorChecked = false;
+                entity.ElevatorChecked = false;
                 Debug.Log("Entity was elevated");
                 
                 
@@ -106,7 +106,7 @@ namespace DefaultNamespace
             {
                 DestroyImmediate(entityObject);
                 Debug.Log("Another one bites the dust");
-                EntityController.entityExists--;
+                Spawner.entityExists--;
             }
             
         }

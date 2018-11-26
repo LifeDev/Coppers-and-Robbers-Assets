@@ -5,17 +5,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using Image = UnityEngine.Experimental.UIElements.Image;
 
-public class PlayerMovement : CharacterMovement {
+public class RobberMovement : CharacterMovement {
 
- 
-    public GameObject player;
     
-
-    ElevatorController elevator = new ElevatorController();
-
-    public float movementSpeed;
     
-    public SpriteRenderer rend;
 
     public bool canSprint { get; set; }
 
@@ -23,7 +16,6 @@ public class PlayerMovement : CharacterMovement {
     public float sprintCooldown;
     private float sprintDurationTemp;
     public float sprintDuration;
-    public Text cooldownText;
     public UnityEngine.UI.Image cooldownImage;
     private float cooldownImageHeight;
     
@@ -31,7 +23,7 @@ public class PlayerMovement : CharacterMovement {
     {
         
         rend = GetComponent<SpriteRenderer>();
-        playerElevatorChecked = false;
+        ElevatorChecked = false;
         insideBuilding = false;
         canEnterBuilding = false;
         canSprint = true;
@@ -49,7 +41,7 @@ public class PlayerMovement : CharacterMovement {
         void Update()
         {
         //movement
-            MoveRobber(movementSpeed, playerElevatorChecked, insideBuilding, canEnterBuilding, rend);
+            MoveRobber(movementSpeed, ElevatorChecked, insideBuilding, canEnterBuilding, rend);
             
             Sprint();
         }
@@ -77,7 +69,6 @@ public class PlayerMovement : CharacterMovement {
 
             }
             sprintCooldownTemp -= Time.deltaTime;
-            //cooldownText.text = Mathf.Ceil(sprintCooldownTemp).ToString();
             cooldownImage.rectTransform.sizeDelta = new Vector2(100, cooldownImage.rectTransform.sizeDelta.y - Time.deltaTime * (cooldownImageHeight / sprintCooldown));
             Debug.Log(sprintCooldown);
             Debug.Log(sprintDuration);
@@ -88,7 +79,6 @@ public class PlayerMovement : CharacterMovement {
             canSprint = true;
             sprintCooldownTemp = sprintCooldown;
             cooldownImage.enabled = false;
-            //cooldownText.text = "";
             cooldownImage.rectTransform.sizeDelta = new Vector2(100, 100);
         }
 

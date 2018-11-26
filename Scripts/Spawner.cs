@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntityController : MonoBehaviour {
+public class Spawner : MonoBehaviour {
 
     static public int entityExists = 0;
     static public float entityQuantity = 20;

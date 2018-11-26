@@ -1,18 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class BuildingEnter : MonoBehaviour
+public class BuildingTriggerHandler : MonoBehaviour
 {
 
 
-	public PlayerMovement player;
+	[FormerlySerializedAs("player")] public RobberMovement Robber;
 	    
 	void OnTriggerEnter2D(Collider2D collision)
 	{
 		if (collision.gameObject.tag == "Player")
 		{
-			player.canEnterBuilding = true;
+			Robber.canEnterBuilding = true;
         
 		}
         else if (collision.gameObject.tag == "Entity")
@@ -26,7 +27,7 @@ public class BuildingEnter : MonoBehaviour
 	{
 		if (other.gameObject.tag == "Player")
 		{
-			player.canEnterBuilding = false;
+			Robber.canEnterBuilding = false;
 		}
 	}
 }
