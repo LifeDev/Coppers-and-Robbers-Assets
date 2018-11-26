@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ElevatorController : MonoBehaviour {
 
-    int blocksToTp = 9;
+    float blocksToTp = EntityController.secondLevel - EntityController.firstLevel;
 
     public PlayerMovement player;
     public EntityMovement entity;
@@ -19,6 +19,7 @@ public class ElevatorController : MonoBehaviour {
         }
         else if (collision.gameObject.tag == "Entity")
         {
+            entity = collision.GetComponent<EntityMovement>();
             entity.entityElevatorChecked = true;
             Debug.Log(entity.entityElevatorChecked);
         }
@@ -32,6 +33,7 @@ public class ElevatorController : MonoBehaviour {
         }
         if (collision.gameObject.tag == "Entity")
         {
+            entity = collision.GetComponent<EntityMovement>();
             entity.entityElevatorChecked = false;
         }
     }
@@ -41,10 +43,18 @@ public class ElevatorController : MonoBehaviour {
         character.transform.position = new Vector2(character.transform.position.x, character.transform.position.y + blocksToTp);
     }
 
+    public void Elevate(EntityMovement character)
+    {
+        character.transform.position = new Vector2(character.transform.position.x, character.transform.position.y + blocksToTp);
+    }
+
     public void Lower(GameObject character)
     {
         character.transform.position = new Vector2(character.transform.position.x, character.transform.position.y - blocksToTp);
     }
 
-
+    public void Lower(EntityMovement character)
+    {
+        character.transform.position = new Vector2(character.transform.position.x, character.transform.position.y - blocksToTp);
+    }
 }

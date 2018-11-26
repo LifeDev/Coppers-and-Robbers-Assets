@@ -18,6 +18,6 @@ public class EntityMovement : CharacterMovement {
 
     void Update ()
 	{
-        MoveNPC(speed, entityElevatorChecked ,gameObject, target);
+        MoveNPC(speed, this, target, gameObject);
 	}
 }

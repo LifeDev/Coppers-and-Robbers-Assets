@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class EntityController : MonoBehaviour {
 
-    int entityExists = 0;
-    public float entityQuantity = 5;
+    static public int entityExists = 0;
+    static public float entityQuantity = 20;
     public GameObject entity;
 
     public static float firstLevel = -3.311636f;
     public static float secondLevel = 5.688363f;
     public static float minXpointToSpawn = -8;
-    public static float maxXpointToSpawn = 50;
+    public static float maxXpointToSpawn = 24;
 
 
 

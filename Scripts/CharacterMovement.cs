@@ -76,31 +76,39 @@ namespace DefaultNamespace
             }
         }
 
-        protected void MoveNPC(float speed, bool entityElevatorChecked , GameObject entity , Vector2 target)
+        protected void MoveNPC(float speed , EntityMovement entity , Vector2 target, GameObject entityObject)
         {
             float horizontalMove = speed * Time.deltaTime;
 
-            if ((target.y > entity.transform.position.y) || (target.y < entity.transform.position.y)) {
+            if ((target.y > Mathf.Ceil(entity.transform.position.y))) {
                 transform.position = Vector2.MoveTowards(transform.position, GameObject.FindGameObjectWithTag("Elevator").transform.position, horizontalMove);
             } else
             {
                 transform.position = Vector2.MoveTowards(transform.position, target, horizontalMove);
                     
             }
-
-
-            if (entityElevatorChecked && (target.y > entity.transform.position.y))
+            
+            
+            if (entity.entityElevatorChecked && (target.y > entity.transform.position.y))
             {
                 elevator.Elevate(entity);
-                entityElevatorChecked = false;
+                entity.entityElevatorChecked = false;
                 Debug.Log("Entity was elevated");
                 
+                
             }
-            else if (entityElevatorChecked && (target.y < entity.transform.position.y))
-            {
-                elevator.Lower(entity);
-            }
+            //else if (entity.entityElevatorChecked && (target.y < entity.transform.position.y))
+            //{
+            //    elevator.Lower(entity);
+            //}
 
+            if (target.x == entity.transform.position.x)
+            {
+                DestroyImmediate(entityObject);
+                Debug.Log("Another one bites the dust");
+                EntityController.entityExists--;
+            }
+            
         }
 
 
