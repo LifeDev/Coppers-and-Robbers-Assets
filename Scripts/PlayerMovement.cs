@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using DefaultNamespace;
 using UnityEngine;
+using UnityEngine.UI;
+using Image = UnityEngine.Experimental.UIElements.Image;
 
 public class PlayerMovement : CharacterMovement {
 
@@ -21,9 +23,13 @@ public class PlayerMovement : CharacterMovement {
     public float sprintCooldown;
     private float sprintDurationTemp;
     public float sprintDuration;
+    public Text cooldownText;
+    public UnityEngine.UI.Image cooldownImage;
+    private float cooldownImageHeight;
     
     private void Start()
     {
+        
         rend = GetComponent<SpriteRenderer>();
         elevatorChecked = false;
         insideBuilding = false;
@@ -31,6 +37,8 @@ public class PlayerMovement : CharacterMovement {
         canSprint = true;
         sprintCooldownTemp = sprintCooldown;
         sprintDurationTemp = sprintDuration;
+        cooldownImage.enabled = false;
+        cooldownImageHeight = cooldownImage.rectTransform.sizeDelta.y;
     }
 
     // Update is called once per frame
@@ -51,6 +59,9 @@ public class PlayerMovement : CharacterMovement {
                 movementSpeed *= 2f;
                 canSprint = false;
                 sprintDurationTemp -= 0.000001f;
+                cooldownImage.enabled = true;
+                cooldownImage.color = new Color32(102,204,102,180);
+
             }
         }
 
@@ -62,6 +73,8 @@ public class PlayerMovement : CharacterMovement {
 
             }
             sprintCooldownTemp -= Time.deltaTime;
+            //cooldownText.text = Mathf.Ceil(sprintCooldownTemp).ToString();
+            cooldownImage.rectTransform.sizeDelta = new Vector2(100, cooldownImage.rectTransform.sizeDelta.y - Time.deltaTime * (cooldownImageHeight / sprintCooldown));
             Debug.Log(sprintCooldown);
             Debug.Log(sprintDuration);
         }
@@ -70,13 +83,16 @@ public class PlayerMovement : CharacterMovement {
         {
             canSprint = true;
             sprintCooldownTemp = sprintCooldown;
+            cooldownImage.enabled = false;
+            //cooldownText.text = "";
+            cooldownImage.rectTransform.sizeDelta = new Vector2(100, 100);
         }
 
         if (sprintDurationTemp <= 0f)
         {
             movementSpeed = movementSpeed / 2f;
             sprintDurationTemp = sprintDuration;
-            
+            cooldownImage.color = new Color32(108,108,108,180);
         }
         
     }
