@@ -31,21 +31,25 @@ public class PlayerMovement : CharacterMovement {
     {
         
         rend = GetComponent<SpriteRenderer>();
-        elevatorChecked = false;
+        playerElevatorChecked = false;
         insideBuilding = false;
         canEnterBuilding = false;
         canSprint = true;
         sprintCooldownTemp = sprintCooldown;
         sprintDurationTemp = sprintDuration;
+
         cooldownImage.enabled = false;
         cooldownImageHeight = cooldownImage.rectTransform.sizeDelta.y;
+
+        FirstLevel = true;
+
     }
 
     // Update is called once per frame
         void Update()
         {
         //movement
-            MoveRobber(movementSpeed, elevatorChecked, insideBuilding, canEnterBuilding, rend);
+            MoveRobber(movementSpeed, playerElevatorChecked, insideBuilding, canEnterBuilding, rend);
             
             Sprint();
         }

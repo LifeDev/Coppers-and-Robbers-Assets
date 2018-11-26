@@ -7,19 +7,20 @@ public class ElevatorController : MonoBehaviour {
     int blocksToTp = 9;
 
     public PlayerMovement player;
-    public EntityController entity;
+    public EntityMovement entity;
 
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            player.elevatorChecked = true;
-       
+            player.playerElevatorChecked = true;
+            Debug.Log(player.playerElevatorChecked);
         }
-        else if (collision.gameObject.tag == "Entity") {  
-            if (EntityController.useElevator())
-                Elevate(collision.gameObject);
+        else if (collision.gameObject.tag == "Entity")
+        {
+            entity.entityElevatorChecked = true;
+            Debug.Log(entity.entityElevatorChecked);
         }
     }
 
@@ -27,13 +28,22 @@ public class ElevatorController : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Player")
         {
-            player.elevatorChecked = false;
+            player.playerElevatorChecked = false;
+        }
+        if (collision.gameObject.tag == "Entity")
+        {
+            entity.entityElevatorChecked = false;
         }
     }
 
     public void Elevate(GameObject character)
     {
         character.transform.position = new Vector2(character.transform.position.x, character.transform.position.y + blocksToTp);
+    }
+
+    public void Lower(GameObject character)
+    {
+        character.transform.position = new Vector2(character.transform.position.x, character.transform.position.y - blocksToTp);
     }
 
 
