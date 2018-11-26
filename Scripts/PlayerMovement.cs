@@ -25,19 +25,20 @@ public class PlayerMovement : CharacterMovement {
     private void Start()
     {
         rend = GetComponent<SpriteRenderer>();
-        elevatorChecked = false;
+        playerElevatorChecked = false;
         insideBuilding = false;
         canEnterBuilding = false;
         canSprint = true;
         sprintCooldownTemp = sprintCooldown;
         sprintDurationTemp = sprintDuration;
+        FirstLevel = true;
     }
 
     // Update is called once per frame
         void Update()
         {
         //movement
-            MoveRobber(movementSpeed, elevatorChecked, insideBuilding, canEnterBuilding, rend);
+            MoveRobber(movementSpeed, playerElevatorChecked, insideBuilding, canEnterBuilding, rend);
             
             Sprint();
         }

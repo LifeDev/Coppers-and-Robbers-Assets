@@ -7,10 +7,17 @@ public class EntityMovement : CharacterMovement {
 
     public float speed = 5f;
     //target to what position go to
-    private Vector2 target = new Vector2(80, 3);
+    private Vector2 target;
 
-	void Update ()
+
+    private void Start()
+    {
+        entityElevatorChecked = false;
+        target = EntityController.getPoint();
+    }
+
+    void Update ()
 	{
-	    MoveNPC(speed, gameObject);
+        MoveNPC(speed, entityElevatorChecked ,gameObject, target);
 	}
 }

@@ -8,10 +8,14 @@ namespace DefaultNamespace
         [SerializeField] private GameObject player;
         [SerializeField] private float timeInsideBuilding;
         public bool insideBuilding { get; set; }
-        public bool elevatorChecked { get; set; }
+        public bool playerElevatorChecked { get; set; }
+        public bool entityElevatorChecked { get; set; }
         public bool canEnterBuilding { get; set; }
         public float currentTimeInsideBuilding { get; set; }
-            
+        public bool FirstLevel { get; set; }
+        public bool LastLevel { get; set; }
+
+
         protected void MoveRobber(float speed, bool elevatorChecked, bool insideBuilding,
             bool canEnterBuilding, SpriteRenderer rend)
         {
@@ -56,22 +60,50 @@ namespace DefaultNamespace
 
             if (elevatorChecked)
             {
-                if (Input.GetKeyDown(KeyCode.W))
+                if (Input.GetKeyDown(KeyCode.W) && !LastLevel)
                 {
                     elevator.Elevate(player);
-             
-                    this.elevatorChecked = false;
+                    this.LastLevel = true;
+                    this.FirstLevel = false;
                 }
+                else if (Input.GetKeyDown(KeyCode.S) && !FirstLevel) {
+                    elevator.Lower(player);
+                    this.LastLevel = false;
+                    this.FirstLevel = true;
+
+                }
+
             }
         }
 
-        protected void MoveNPC(float speed, GameObject entity)
+        protected void MoveNPC(float speed, bool entityElevatorChecked , GameObject entity , Vector2 target)
         {
             float horizontalMove = speed * Time.deltaTime;
-            entity.transform.position = new Vector2(entity.transform.position.x + horizontalMove, entity.transform.position.y);
+
+            if ((target.y > entity.transform.position.y) || (target.y < entity.transform.position.y)) {
+                transform.position = Vector2.MoveTowards(transform.position, GameObject.FindGameObjectWithTag("Elevator").transform.position, horizontalMove);
+            } else
+            {
+                transform.position = Vector2.MoveTowards(transform.position, target, horizontalMove);
+                    
+            }
+
+
+            if (entityElevatorChecked && (target.y > entity.transform.position.y))
+            {
+                elevator.Elevate(entity);
+                entityElevatorChecked = false;
+                Debug.Log("Entity was elevated");
+                
+            }
+            else if (entityElevatorChecked && (target.y < entity.transform.position.y))
+            {
+                elevator.Lower(entity);
+            }
+
         }
-        
-        
-        
+
+
+
     }
 }

@@ -6,34 +6,34 @@ public class EntityController : MonoBehaviour {
 
     int entityExists = 0;
     public float entityQuantity = 5;
-
     public GameObject entity;
 
+    public static float firstLevel = -3.311636f;
+    public static float secondLevel = 5.688363f;
+    public static float minXpointToSpawn = -8;
+    public static float maxXpointToSpawn = 50;
 
-    private float[,] points = new float[,] { 
-        {-5,-3},
-        {20,-3},
-        {40,-3}
+
+
+ public static Vector2 getPoint()  {
+        Vector2[] possiblePossitions = new Vector2[]
+{
+     new Vector2(Random.Range(minXpointToSpawn,maxXpointToSpawn), firstLevel),
+    new Vector2(Random.Range(minXpointToSpawn, maxXpointToSpawn), secondLevel)
 };
-
-    private float[] pointsToSpawn = new float[] {-5,20,40};
-
-
-    static public bool useElevator()
-    {
-        int rng = Random.Range(0, 2);
-        if (rng == 1)
-            return true;
-        else 
-            return false;
+      Vector2 chosenPosition = possiblePossitions[Random.Range(0 , possiblePossitions.Length)];
+        return chosenPosition;       
     }
+
+
+    Vector2 testSpawn = new Vector2(-8, -3.311636f);
+
 	
 	void Update () {
 
         if (entityExists < entityQuantity)
         {
-            Vector3 Pos = new Vector3(pointsToSpawn[Random.Range(0,2)] , -3 , 0);
-            Instantiate(entity , Pos , Camera.main.transform.rotation);
+            Instantiate(entity, testSpawn, Camera.main.transform.rotation);
             entityExists++;
         }
 
