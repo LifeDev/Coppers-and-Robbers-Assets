@@ -7,9 +7,6 @@ using Image = UnityEngine.Experimental.UIElements.Image;
 
 public class RobberMovement : CharacterMovement {
 
-    
-    
-
     public bool canSprint { get; set; }
 
     private float sprintCooldownTemp;
@@ -18,10 +15,41 @@ public class RobberMovement : CharacterMovement {
     public float sprintDuration;
     public UnityEngine.UI.Image cooldownImage;
     private float cooldownImageHeight;
-    
+
+
+    public GameObject bulletLeft , bulletRight;
+    Vector2 bulletPos;
+    public float fireRate = 0.5f;
+    float nextFire = 0.0f;
+
+    void Shoot() { 
+     if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > nextFire)
+            {
+            nextFire = Time.time + fireRate;
+            PosToFire();
+            }
+    }
+
+    void PosToFire()
+    {
+        bulletPos = transform.position;
+        if (!rend.flipX)
+        {
+            bulletPos += new Vector2(+0.35f, +0.3f);
+            Instantiate(bulletRight, bulletPos, Quaternion.identity);
+        }
+        if (rend.flipX)
+        {
+            bulletPos += new Vector2(-0.35f, +0.3f);
+            Instantiate(bulletLeft, bulletPos, Quaternion.identity);
+        }
+
+    }
+
+
     private void Start()
     {
-        
+        rigidBody = GetComponent<Rigidbody2D>();
         rend = GetComponent<SpriteRenderer>();
         ElevatorChecked = false;
         insideBuilding = false;
@@ -42,7 +70,7 @@ public class RobberMovement : CharacterMovement {
         {
         //movement
             MoveRobber(movementSpeed, ElevatorChecked, insideBuilding, canEnterBuilding, rend);
-            
+        Shoot();
             Sprint();
         }
 

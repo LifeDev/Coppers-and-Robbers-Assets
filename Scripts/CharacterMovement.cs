@@ -15,6 +15,8 @@ namespace DefaultNamespace
         public bool LastLevel { get; set; }
         public float movementSpeed;
         protected SpriteRenderer rend;
+        protected Rigidbody2D rigidBody;
+
 
         protected void MoveRobber(float speed, bool elevatorChecked, bool insideBuilding,
             bool canEnterBuilding, SpriteRenderer rend)
@@ -23,7 +25,12 @@ namespace DefaultNamespace
             if (!insideBuilding)
             {
                 float horizontalMove = Input.GetAxisRaw("Horizontal") * speed * Time.deltaTime;
+                if (Input.GetKeyDown(KeyCode.A))
+                    rend.flipX = true;
+                if (Input.GetKeyDown(KeyCode.D))
+                    rend.flipX = false;
                 transform.position = new Vector2(transform.position.x + horizontalMove, transform.position.y);
+               
             }
 
 
@@ -74,6 +81,18 @@ namespace DefaultNamespace
                 }
 
             }
+            // Jumping
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                //add 4 to a variable;
+                rigidBody.AddForce(new Vector2(0, 4), ForceMode2D.Impulse);
+
+            }
+            
+
+           
+
+
         }
 
         protected void MoveNPC(float speed , EntityMovement entity , Vector2 target, GameObject entityObject)
