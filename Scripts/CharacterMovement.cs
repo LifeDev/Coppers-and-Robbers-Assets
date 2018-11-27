@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DefaultNamespace
 {
@@ -15,7 +16,10 @@ namespace DefaultNamespace
         public bool LastLevel { get; set; }
         public float movementSpeed;
         protected SpriteRenderer rend;
-
+        public GameObject minimap;
+        public Image minimapBorder;
+        
+        
         protected void MoveRobber(float speed, bool elevatorChecked, bool insideBuilding,
             bool canEnterBuilding, SpriteRenderer rend)
         {
@@ -111,6 +115,7 @@ namespace DefaultNamespace
             
         }
 
+       
 
 
     }

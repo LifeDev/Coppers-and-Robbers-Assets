@@ -19,6 +19,7 @@ public class RobberMovement : CharacterMovement {
     public UnityEngine.UI.Image cooldownImage;
     private float cooldownImageHeight;
     
+    
     private void Start()
     {
         
@@ -44,11 +45,15 @@ public class RobberMovement : CharacterMovement {
             MoveRobber(movementSpeed, ElevatorChecked, insideBuilding, canEnterBuilding, rend);
             
             Sprint();
+            
+            Running();
+            
+            
         }
 
     void Sprint()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             if (canSprint)
             {
@@ -89,6 +94,19 @@ public class RobberMovement : CharacterMovement {
             cooldownImage.color = new Color32(108,108,108,180);
         }
         
+    }
+
+    void Running()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            movementSpeed = movementSpeed * 2;
+        }
+        
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            movementSpeed = movementSpeed / 2;
+        }
     }
 
     }
